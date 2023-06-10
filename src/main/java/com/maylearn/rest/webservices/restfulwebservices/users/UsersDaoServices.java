@@ -3,6 +3,7 @@ package com.maylearn.rest.webservices.restfulwebservices.users;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import org.springframework.stereotype.Component;
 
@@ -20,5 +21,10 @@ public class UsersDaoServices {
 	
 	public List<Users> finaAll() {
 		return users;
+	}
+	
+	public Users findUser(Integer id) {
+		Predicate<? super Users> predicate = users -> users.getId().equals(id);
+		return users.stream().filter(predicate).findFirst().get();
 	}
 }
