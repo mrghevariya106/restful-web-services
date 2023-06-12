@@ -33,4 +33,9 @@ public class UsersDaoServices {
 		users.add(user);
 		return user;
 	}
+
+	public void deleteUserById(Integer id) {
+		Predicate<? super Users> predicate = users -> users.getId().equals(id);
+		users.removeIf(predicate);
+	}
 }
