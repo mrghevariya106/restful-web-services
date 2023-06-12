@@ -13,23 +13,23 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 public class UsersResources {
-	
+
 	private UsersDaoServices service;
-	
+
 	public UsersResources(UsersDaoServices service) {
 		this.service = service;
 	}
-	
+
 	@GetMapping("/users")
-	public List<Users> retriveAllUsers(){
+	public List<Users> retriveAllUsers() {
 		return service.finaAll();
 	}
-	
+
 	@GetMapping("/users/{id}")
 	public Users findUser(@PathVariable Integer id) {
 		Users user = service.findUser(id);
-		if(user == null)
-			throw new UserNotFoundException("id:"+id);
+		if (user == null)
+			throw new UserNotFoundException("id:" + id);
 		return user;
 	}
 
@@ -37,11 +37,12 @@ public class UsersResources {
 	public void creatUser(@RequestBody Users user) {
 		service.save(user);
 	}
-	
+
 	@PostMapping("/user")
 	public ResponseEntity<Object> saveUserDyn(@RequestBody Users user) {
 		Users savedUser = service.save(user);
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("s/{id}").buildAndExpand(savedUser.getId()).toUri();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("s/{id}").buildAndExpand(savedUser.getId())
+				.toUri();
 		return ResponseEntity.created(location).build();
 	}
 }
