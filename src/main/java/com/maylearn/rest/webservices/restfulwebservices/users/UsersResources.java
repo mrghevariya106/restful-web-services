@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import jakarta.validation.Valid;
+
 @RestController
 public class UsersResources {
 
@@ -40,12 +42,12 @@ public class UsersResources {
 	}
 
 	@PostMapping("/users")
-	public void creatUser(@RequestBody Users user) {
+	public void creatUser(@Valid @RequestBody Users user) {
 		service.save(user);
 	}
 
 	@PostMapping("/user")
-	public ResponseEntity<Object> saveUserDyn(@RequestBody Users user) {
+	public ResponseEntity<Object> saveUserDyn(@Valid @RequestBody Users user) {
 		Users savedUser = service.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("s/{id}").buildAndExpand(savedUser.getId())
 				.toUri();

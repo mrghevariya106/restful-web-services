@@ -2,12 +2,19 @@ package com.maylearn.rest.webservices.restfulwebservices.users;
 
 import java.time.LocalDate;
 
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+
 public class Users {
-	
+
 	private Integer id;
+
+	@Size(min=2, message = "Name should have atleast 2 characters")
 	private String name;
+
+	@Past(message = "Birthdate should be in past")
 	private LocalDate dateOfBirth;
-	
+
 	public Users(Integer id, String name, LocalDate dateOfBirth) {
 		super();
 		this.id = id;
@@ -43,7 +50,5 @@ public class Users {
 	public String toString() {
 		return "Users [id=" + id + ", name=" + name + ", dateOfBirth=" + dateOfBirth + "]";
 	}
-	
-	
 
 }
